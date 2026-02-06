@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Links de Vídeos</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .link-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 10px;
+      margin-top: 20px;
+    }
+    a {
+      display: block;
+      padding: 10px;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      text-align: center;
+      transition: background 0.3s;
+    }
+    a:hover {
+      background: #0056b3;
+    }
+    .pagination {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .pagination button {
+      margin: 5px;
+      padding: 10px 15px;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .pagination button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <h1>Links de Epstein</h1>
+  <h2>Esses videos foram encontrados nos computadores do Epstein</h2>
+
+  <button onclick="window.location.href='index2.html'">Abrir Fotos</button>
+
+  <div id="linkContainer" class="link-list"></div>
+  <div class="pagination" id="pagination"></div>
+
+  <script>
+    const start = 1648441; // número inicial
+    const end = 1648784;   // número final
+    const perPage = 30;
+    let currentPage = 1;
+
+    // Gera todos os links
+    const links = [];
+    for (let i = start; i <= end; i++) {
+      const url = `https://www.justice.gov/epstein/files/DataSet%2010/EFTA0${i}.mp4`;
+      links.push(url);
+    }
+
+    function renderPage(page) {
+      const container = document.getElementById("linkContainer");
+      container.innerHTML = "";
+      const startIndex = (page - 1) * perPage;
+      const endIndex = startIndex + perPage;
+      const pageLinks = links.slice(startIndex, endIndex);
+
+      pageLinks.forEach((url, idx) => {
+        const a = document.createElement("a");
+        a.href = url;
+        a.target = "_blank";
+        a.textContent = `Vídeo ${startIndex + idx + 1}`;
+        container.appendChild(a);
+      });
+
+      renderPagination(page);
+    }
+
+    function renderPagination(page) {
+      const totalPages = Math.ceil(links.length / perPage);
+      const pagination = document.getElementById("pagination");
+      pagination.innerHTML = "";
+
+      const prevBtn = document.createElement("button");
+      prevBtn.textContent = "Anterior";
+      prevBtn.disabled = page === 1;
+      prevBtn.onclick = () => {
+        currentPage--;
+        renderPage(currentPage);
+      };
+      pagination.appendChild(prevBtn);
+
+      for (let i = 1; i <= totalPages; i++) {
+        const btn = document.createElement("button");
+        btn.textContent = i;
+        btn.disabled = i === page;
+        btn.onclick = () => {
+          currentPage = i;
+          renderPage(currentPage);
+        };
+        pagination.appendChild(btn);
+      }
+
+      const nextBtn = document.createElement("button");
+      nextBtn.textContent = "Próximo";
+      nextBtn.disabled = page === totalPages;
+      nextBtn.onclick = () => {
+        currentPage++;
+        renderPage(currentPage);
+      };
+      pagination.appendChild(nextBtn);
+    }
+
+    // Renderiza a primeira página
+    renderPage(currentPage);
+  </script>
+</body>
+</html>
