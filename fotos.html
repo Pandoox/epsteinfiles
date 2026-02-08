@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Links de PDFs</title>
-<style>
+  <title>Links de Vídeos</title>
+  <style>
   body {
     font-family: Arial, sans-serif;
     background: #121212;
@@ -63,24 +63,29 @@
 
 </head>
 <body>
-  <h1>Links de PDFs</h1>
-  <div class="btn-container">
+
+    
+  <h1>Links de Epstein</h1>
+    <div class="btn-container">
       <a class="btn" href="index.html" >VOLTAR PAGINA INICIAL</a>
     
     </div>
+  <h2>Esses videos foram encontrados nos computadores do Epstein</h2>
+  
+
   <div id="linkContainer" class="link-list"></div>
   <div class="pagination" id="pagination"></div>
 
   <script>
-    const start = 1316549; // número inicial
-    const end = 1316638;   // número final
+    const start = 1648441; // número inicial
+    const end = 1648784;   // número final
     const perPage = 30;
     let currentPage = 1;
 
-    // Gera todos os links de PDFs
+    // Gera todos os links
     const links = [];
     for (let i = start; i <= end; i++) {
-      const url = `https://www.justice.gov/epstein/files/DataSet%2010/EFTA0${i}.pdf`;
+      const url = `https://www.justice.gov/epstein/files/DataSet%2010/EFTA0${i}.mp4`;
       links.push(url);
     }
 
@@ -95,7 +100,7 @@
         const a = document.createElement("a");
         a.href = url;
         a.target = "_blank";
-        a.textContent = `PDF ${startIndex + idx + 1}`;
+        a.textContent = `Vídeo ${startIndex + idx + 1}`;
         container.appendChild(a);
       });
 
